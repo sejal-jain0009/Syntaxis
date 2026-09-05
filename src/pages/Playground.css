@@ -17,6 +17,8 @@
   backdrop-filter: blur(12px);
 }
 
+.playground-topbar > * { min-width: 0; }
+
 .playground-brand { display: inline-flex; align-items: center; gap: 0.7rem; color: var(--text); font-size: 1.2rem; font-weight: 700; letter-spacing: 0.04em; text-decoration: none; transition: color 180ms ease, transform 180ms ease; }
 .playground-brand:hover { color: var(--accent); transform: translateX(2px); }
 .playground-brand .brand-mark { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 0.6rem; background: linear-gradient(135deg, var(--accent), var(--accent-strong)); color: var(--button-text); font-weight: 800; }
@@ -206,11 +208,36 @@
   .output-body { min-height: 220px; }
 }
 @media (max-width: 520px) {
-  .playground-content { padding-top: 1.5rem; }
+  .playground-topbar {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.75rem;
+  }
+
+  .playground-brand { gap: 0.45rem; font-size: 1rem; }
+  .playground-brand .brand-mark { width: 1.8rem; height: 1.8rem; }
+  .playground-title { grid-column: 1 / -1; grid-row: 2; justify-content: flex-start; }
+  .playground-top-actions { grid-column: 1 / -1; grid-row: 3; justify-content: stretch; gap: 0.45rem; }
+  .playground-top-actions select { flex: 1 1 7rem; max-width: none; min-width: 0; }
+  .dashboard-link, .focus-toggle { flex: 0 1 auto; }
+  .dashboard-link { padding-inline: 0.2rem; }
+  .focus-toggle { padding-inline: 0.55rem; white-space: nowrap; }
+  .playground-content { padding: 1.5rem 0.75rem 2.25rem; }
   .focus-toggle { padding-inline: 0.65rem; }
   .code-editor, .code-editor textarea { min-height: 390px; }
   .focus-mode .code-editor, .focus-mode .code-editor textarea { min-height: 390px; }
   .focus-mode .playground-topbar { grid-template-columns: 1fr auto; }
+}
+
+@media (max-width: 360px) {
+  .playground-top-actions { display: grid; grid-template-columns: minmax(0, 1fr) auto; }
+  .top-language { display: none; }
+  .dashboard-link { grid-column: 1 / -1; order: 3; padding: 0.2rem 0; }
+  .focus-toggle { min-width: 0; }
+  .editor-actions button { font-size: 0.68rem; }
+  .file-control { width: 100%; }
+  .file-control input { min-width: 0; flex: 1 1 auto; width: auto; }
 }
 @media (prefers-reduced-motion: reduce) {
   [data-playground-reveal] { opacity: 1; transform: none; transition: none; }

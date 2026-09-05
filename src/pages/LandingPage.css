@@ -222,6 +222,27 @@ button, a { font: inherit; }
   box-shadow: 0 12px 40px -24px rgba(0, 0, 0, 0.9);
 }
 
+.nav-menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--panel-2);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.15rem;
+  line-height: 1;
+}
+
+.nav-menu-toggle:focus-visible {
+  outline: 2px solid var(--teal);
+  outline-offset: 3px;
+}
+
 .nav-links {
   display: flex;
   justify-self: center;
@@ -281,6 +302,55 @@ button, a { font: inherit; }
   transition: transform 200ms var(--ease), box-shadow 200ms var(--ease);
 }
 .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 14px 30px -12px rgba(46, 230, 197, 0.85); }
+
+@media (max-width: 720px) {
+  .topbar {
+    grid-template-columns: 1fr auto;
+    gap: 0.7rem;
+    width: min(100% - 24px, 1200px);
+    margin-top: 0.6rem;
+    padding: 0.55rem 0.65rem 0.55rem 0.8rem;
+    border-radius: 1.1rem;
+  }
+
+  .nav-menu-toggle { display: inline-flex; justify-self: end; }
+
+  .nav-links,
+  .nav-actions {
+    display: none;
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .is-menu-open .nav-links,
+  .is-menu-open .nav-actions { display: flex; }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    padding-top: 0.35rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .nav-links a,
+  .nav-link-btn,
+  .nav-cta {
+    display: flex;
+    align-items: center;
+    min-height: 2.65rem;
+    padding: 0.55rem 0.7rem;
+    white-space: nowrap;
+  }
+
+  .nav-actions {
+    align-items: stretch;
+    gap: 0.35rem;
+    padding-top: 0.25rem;
+  }
+
+  .nav-actions > * { flex: 1 1 0; justify-content: center; }
+}
 
 /* ============================================================
    Hero
