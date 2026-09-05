@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const SETTINGS_STORAGE_KEY = 'syntaxis-settings';
 
 export const defaultSettings = {
-  theme: 'system',
+  theme: 'dark',
   accent: 'blue',
   defaultLanguage: 'Java',
   fontSize: 'medium',
@@ -25,7 +25,7 @@ const SettingsContext = createContext(null);
 
 function readStoredSettings() {
   try {
-    return { ...defaultSettings, ...JSON.parse(window.localStorage.getItem(SETTINGS_STORAGE_KEY) || '{}') };
+    return { ...defaultSettings, ...JSON.parse(window.localStorage.getItem(SETTINGS_STORAGE_KEY) || '{}'), theme: 'dark' };
   } catch {
     return defaultSettings;
   }
@@ -37,17 +37,11 @@ export function SettingsProvider({ children }) {
   useEffect(() => {
     const root = document.documentElement;
     const [accent, accentStrong, buttonText] = accentValues[settings.accent] || accentValues.blue;
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
-    const applyTheme = () => {
-      root.dataset.theme = settings.theme === 'system' ? (mediaQuery.matches ? 'light' : 'dark') : settings.theme;
-    };
-    applyTheme();
+    root.dataset.theme = 'dark';
     root.style.setProperty('--accent', accent);
     root.style.setProperty('--accent-strong', accentStrong);
     root.style.setProperty('--button-text', buttonText);
     window.localStorage.setItem(SETTINGS_STORAGE_KEY, JSON.stringify(settings));
-    mediaQuery.addEventListener('change', applyTheme);
-    return () => mediaQuery.removeEventListener('change', applyTheme);
   }, [settings]);
 
   function updateSetting(name, value) {
